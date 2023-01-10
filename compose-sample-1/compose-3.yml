@@ -18,7 +18,7 @@ services:
     depends_on:
       - mysql-primary
       - mysql-secondary
-  proxysql:
+  proxysql:    #Load balancer
     # image only works on x86_64 (amd64)
     image: percona/proxysql
     environment: 
