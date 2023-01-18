@@ -1,10 +1,10 @@
 # create your drupal and postgres config here, based off the last assignment
-version: '3'
+version: '3.1'
 
 services:
   drupal:
-    image: custom-drupal   #assign3 - drupal:9
-    build: .
+    image: drupal:8.2   #assign3-drupal:9  #assign4-custom-drupal #section8 ass2- drupal:8.2
+    #build: .    #s8ass2-comment this line
     ports:
       - 8080:80
     volumes:
@@ -17,15 +17,22 @@ services:
     image: postgres:9.6   #assign3 - drupal:9
     # restart: always
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_PASSWORD_FILE=/run/secrets/psql-pw
+    #  - POSTGRES_USER=admin        #pass and user comment for s8ass2
+    #  - POSTGRES_PASSWORD=admin123
     # ports:
-    #   - '5432:5432'
-    volumes:                    #assign3 - not there
+    #  - '5432:5432'
+    secrets:                     #secrets- comment for assign3&4
+      - psql-pw
+    volumes:                    #assign3-not there
       - drupal-data:/var/lib/postgresql/data
 volumes:
   drupal_modules:
   drupal_profiles:
   drupal_themes:
   drupal_sites:
-  drupal-data:                   #assign3 - not there
+  drupal-data:                   #assign3-not there
+
+secrets:                         #secrets- comment for assign3&4
+  psql-pw:
+    external: true
